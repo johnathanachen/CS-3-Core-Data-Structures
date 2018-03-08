@@ -10,26 +10,65 @@ import string
 def is_palindrome(text):
     """A string of characters is a palindrome if it reads the same forwards and
     backwards, ignoring punctuation, whitespace, and letter casing."""
-    # implement is_palindrome_iterative and is_palindrome_recursive below, then
-    # change this to call your implementation to verify it passes all tests
+
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
+
+    # clean them up
+    cleaned_text = __magic_wand(text)
+
+    # set the pointers
+    leading = 0
+    trailing = len(cleaned_text) - 1
+
+    while(leading <= trailing):
+        # check if both half matches split from the middle
+        if(cleaned_text[leading] != cleaned_text[trailing]):
+            return False
+
+        # move one step closer to middle from both sides
+        leading += 1
+        trailing -= 1
+
+    return True
+
 
 
 def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_recursive
-    # to verify that your iterative implementation passes all tests
 
+    # clean them up
+    cleaned_text = __magic_wand(text)
+
+    # the beginning
+    if left is None and right is None:
+        # set the pointers
+        left = 0
+        right = len(cleaned_text) - 1
+
+
+    # If text is less than 1 or empty then return true
+    if len(cleaned_text) < 1 or cleaned_text == '':
+        return True
+        
+    # coming back again
+    if left <= right:
+        if cleaned_text[left] == cleaned_text[right]:
+            # inception mode
+            return is_palindrome_recursive(cleaned_text, left=left + 1, right=right - 1)
+        else:
+            return False
+    return True
+
+
+
+def __magic_wand(text):
+    # remove punc and lower letters
+    cleaned_text = ''.join([i for i in text.lower() if i in string.ascii_letters])
+    return cleaned_text
 
 def main():
     import sys

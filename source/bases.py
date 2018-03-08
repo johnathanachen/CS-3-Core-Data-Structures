@@ -1,6 +1,8 @@
 #!python
 
 import string
+import math
+
 # Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
 # string.hexdigits is '0123456789abcdefABCDEF'
@@ -17,12 +19,27 @@ def decode(digits, base):
     return: int -- integer representation of number (in base 10)"""
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
-    # TODO: Decode digits from binary (base 2)
-    # ...
-    # TODO: Decode digits from hexadecimal (base 16)
-    # ...
-    # TODO: Decode digits from any base (2 up to 36)
-    # ...
+
+    number_base_10 = 0
+
+    for i in range(0, len(digits)):
+        # ith index letter
+        digit = digits[i]
+        # alphabet or digit
+        if digit.isalpha():
+            # lowercase or uppercase
+            if digits.islower():
+                # base number powered by ((len(digits) - 1) - i) place value
+                number_base_10 += base ** ((len(digits) - 1) - i) * (string.ascii_letters.index(digit) + 10)
+            else:
+                #
+                number_base_10 += base ** ((len(digits) - 1) - i) * (string.ascii_letters.index(digit) + 10 - 26)
+        else:
+            #
+            number_base_10 += base ** ((len(digits) - 1) - i) * int(digit)
+    return number_base_10
+
+
 
 
 def encode(number, base):
@@ -34,12 +51,21 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # TODO: Encode number in binary (base 2)
-    # ...
-    # TODO: Encode number in hexadecimal (base 16)
-    # ...
-    # TODO: Encode number in any base (2 up to 36)
-    # ...
+
+    encoded_number = ""
+    while number != 0:
+        # calculate remainder
+        remainder = number % base
+        print("R: {}".format(remainder))
+        if remainder >= 10:
+            # get alphabet character
+            remainder = string.ascii_letters[remainder - 10]
+        # prepend remainder to encoded_number
+        encoded_number = str(remainder) + encoded_number
+        # round down
+        number = int(number / base)
+        print("N: {}".format(number / base))
+    return encoded_number
 
 
 def convert(digits, base1, base2):
@@ -51,14 +77,10 @@ def convert(digits, base1, base2):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
-    # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
+
+    decoded_number = decode(digits, base1)
+    encoded_number = encode(decoded_number, base2)
+    return encoded_number
 
 
 def main():

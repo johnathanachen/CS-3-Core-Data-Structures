@@ -52,7 +52,7 @@ class TestPalindromes(unittest.TestCase):
         assert is_palindrome('taco? cat.') is True
         assert is_palindrome('race-car!!!') is True
         assert is_palindrome('race fast, safe car...') is True
-
+    
     def test_is_palindrome_with_mixed_casing_and_punctuation(self):
         # palindromes with whitespace, punctuation and mixed letter casing
         assert is_palindrome('No, On!') is True
