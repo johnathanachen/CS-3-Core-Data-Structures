@@ -26,6 +26,7 @@ class Set(object):
             self.size += 1
 
     def remove(self, element):
+        # TODO: need to check if element doesnt exist 
         return self.data.delete(element)
 
     def union(self, other_set):
@@ -51,7 +52,7 @@ class Set(object):
         for element in other_set.data.keys():
             if self.data.contains(element):
                 new_set.add(element)
-                
+
         return new_set
 
     def difference(self, other_set):

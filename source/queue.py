@@ -83,7 +83,7 @@ class ArrayQueue(object):
     def front(self):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
-        if !self.is_empty(): # if not empty
+        if not self.is_empty(): # if not empty
             return self.list[0]
         return None
 

@@ -1,6 +1,7 @@
 #!python
 
-from binarysearchtree import BinarySearchTree, BinaryTreeNode
+from binarytree import BinaryTreeNode, BinarySearchTree
+from queue import LinkedQueue
 import unittest
 
 
@@ -154,7 +155,7 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.root.right.left.data == 5
         assert tree.root.right.right.data == 7
 
-    # This space intentionally left blank (please do not delete this comment)
+#     # This space intentionally left blank (please do not delete this comment)
 
     def test_items_in_order_with_3_strings(self):
         # Create a complete binary search tree of 3 strings in level-order
